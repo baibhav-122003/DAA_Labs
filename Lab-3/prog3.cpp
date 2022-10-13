@@ -1,25 +1,41 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <ctime>
 using namespace std;
 
-int c = 0;
-void towerOfHanoi(int n, char from_rod, char to_rod,char aux_rod)
+int getRandom(int x, int y)
 {
-    if (n == 0)
-    {
-        return;
-    }
-    towerOfHanoi(n - 1, from_rod, aux_rod, to_rod);
-    cout << "Move disk " << n << " from rod " << from_rod<< " to rod " << to_rod << endl;
-    c++;
-    towerOfHanoi(n - 1, aux_rod, to_rod, from_rod);
+	srand(time(NULL));
+	return (x + rand() % (y-x+1));
 }
 
-int main()
+int randomizedBinarySearch(int arr[], int l,
+							int r, int x)
 {
-    cout<<"Enter the number of disk: ";
-    int N; cin >> N;
+	if (r >= l)
+	{
+		int mid = getRandom(l, r);
 
-    towerOfHanoi(N, 'A', 'C', 'B');
-    cout << c << " steps";
-    return 0;
+		if (arr[mid] == x)
+			return mid;
+
+		if (arr[mid] > x)
+		return randomizedBinarySearch(arr, l,
+									mid-1, x);
+
+		return randomizedBinarySearch(arr, mid+1,
+										r, x);
+	}
+
+	return -1;
+}
+
+int main(void)
+{
+	int arr[] = {1,2,3,5,7,11,13,17,19};
+	int n = sizeof(arr)/ sizeof(arr[0]);
+	int x = 3;
+	int result = randomizedBinarySearch(arr, 0, n-1, x);
+	(result == -1)? printf("not found")
+	: printf("position %d", result+1);
+	return 0;
 }

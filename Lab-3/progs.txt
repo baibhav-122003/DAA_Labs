@@ -1,6 +1,6 @@
-1 wap to implement number reversal recursively
-2 " " " string reversal "
-3       tower of hanoi
-4       binary search 
-5 wap to recursively find all prime nos in an interval [a,b]
-6 wap to count the vowels in a  string recursively
+1 implement merge sort
+2 implement quick sort
+3 implement randomized binary search
+4 implement multiplication by DAC
+5 implement strassen's matrix multiplication
+6 wap to use DAC to efficiently find 'a to the power b' (b>1)

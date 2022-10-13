@@ -1,30 +1,82 @@
 #include <iostream>
-#include <math.h>
-
 using namespace std;
 
+void merge(int array[], int const left, int const mid,
+		   int const right)
+{
+	auto const subArrayOne = mid - left + 1;
+	auto const subArrayTwo = right - mid;
 
-int reverse(int n){
+	auto *leftArray = new int[subArrayOne],
+		 *rightArray = new int[subArrayTwo];
 
-    if (n/10 == 0)
-        return n;
-    
-    int k=n;
-    int c=0;
-    while(k!=0){
-        c++;
-        k/=10;
-    }
+	for (auto i = 0; i < subArrayOne; i++)
+		leftArray[i] = array[left + i];
+	for (auto j = 0; j < subArrayTwo; j++)
+		rightArray[j] = array[mid + 1 + j];
 
-    return (n%10)*pow(10,c-1) + reverse(n/10);
+	auto indexOfSubArrayOne = 0,
+		 indexOfSubArrayTwo = 0;
+	int indexOfMergedArray = left;
 
+	while (indexOfSubArrayOne < subArrayOne && indexOfSubArrayTwo < subArrayTwo)
+	{
+		if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo])
+		{
+			array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+			indexOfSubArrayOne++;
+		}
+		else
+		{
+			array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+			indexOfSubArrayTwo++;
+		}
+		indexOfMergedArray++;
+	}
+	while (indexOfSubArrayOne < subArrayOne)
+	{
+		array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+		indexOfSubArrayOne++;
+		indexOfMergedArray++;
+	}
+	while (indexOfSubArrayTwo < subArrayTwo)
+	{
+		array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+		indexOfSubArrayTwo++;
+		indexOfMergedArray++;
+	}
+	delete[] leftArray;
+	delete[] rightArray;
 }
 
-int main(){
-    cout<<"Enter the number: ";
-    int n; cin>>n;
+void mergeSort(int array[], int const begin, int const end)
+{
+	if (begin >= end)
+		return;
 
-    cout<<"The reversed number is "<<reverse(n)<<endl;
+	auto mid = begin + (end - begin) / 2;
+	mergeSort(array, begin, mid);
+	mergeSort(array, mid + 1, end);
+	merge(array, begin, mid, end);
+}
 
-    return 0;
+void printArray(int A[], int size)
+{
+	for (auto i = 0; i < size; i++)
+		cout << A[i] << " ";
+}
+
+int main()
+{
+	int arr[] = {7, 5, 12, 16, 216, 122, 68, 1};
+	auto n = sizeof(arr) / sizeof(arr[0]);
+
+	cout << "\nBefore Merge Sort: ";
+	printArray(arr, n);
+
+	mergeSort(arr, 0, n - 1);
+
+	cout << "\nAfter Merge Sort: ";
+	printArray(arr, n);
+	return 0;
 }

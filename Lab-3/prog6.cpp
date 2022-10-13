@@ -1,25 +1,29 @@
 #include <iostream>
 using namespace std;
 
-int vowelCount(char *sptr)
+
+
+int power(int x, unsigned int y)
 {
-
-    if ((*sptr) == '\0')
-    {
-        return 0;
-    }
-    int c = 0;
-    if (*sptr == 'a' || *sptr == 'e' || *sptr == 'i' || *sptr == 'o' || *sptr == 'u')
-        c += 1;
-
-    return c + vowelCount(++sptr);
+	int temp;
+	if (y == 0)
+		return 1;
+	temp = power(x, y / 2);
+	if (y % 2 == 0)
+		return temp * temp;
+	else
+		return x * temp * temp;
 }
+
 
 int main()
 {
-    char str[] = "iiit bhubaneshwar";
+	int x = 6;
+	int y = 5;
+	// int x = -3;
+	// int y = 6;
 
-    cout << "Vowels in above string: " << vowelCount(str);
-
-    return 0;
+	cout << power(x, y);
+	return 0;
 }
+

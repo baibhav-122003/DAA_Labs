@@ -1,6 +1,0 @@
-1 implement merge sort
-2 implement quick sort
-3 implement randomized binary search
-4 implement multiplication by DAC
-5 implement strassen's matrix multiplication
-6 wap to use DAC to efficiently find 'a to the power b' (b>1)
